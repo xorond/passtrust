@@ -1,0 +1,161 @@
+#!/usr/bin/env ruby
+require 'optparse'
+require 'ostruct'
+require 'highline/import'
+# for the password generation
+require 'digest'
+require 'base64'
+require 'securerandom'
+
+# colorful text
+def colorize(text, color_code)
+  "\e[#{color_code}m#{text}\e[0m"
+end
+
+def red(text); colorize(text, 31); end
+def green(text); colorize(text, 32); end
+def blue(text); colorize(text, 34); end
+
+
+# for clipboard integration, this part is optional
+begin
+  require 'clipboard'
+rescue LoadError
+  puts red("Gem 'clipboard' was not found.")
+  puts red("Run 'sudo gem install clipboard' to get it for the clipboard functionalities.")
+end
+
+
+$options = OpenStruct.new
+$options.verify = false
+$options.length = 16
+$options.timeout = 10
+OptionParser.new do |opt|
+  opt.banner = """
+  PassTrust Password Generator
+
+  Usage: passtrust [options]"""
+
+  opt.on('-v', '--verify', 'Ask the keyword twice') { $options.verify = true }
+  opt.on('-l', '--length [LENGTH]', Integer, 'Change password length (default is 16, max is 64)') { |o| $options.length = o }
+  opt.on('-t', '--timeout [SECONDS]', Integer, 'Change the amount of seconds the password will be on screen (default is 10)') { |o| $options.timeout = o }
+  opt.on('-c', '--clipboard', 'Copy the password to the clipboard') { $options.clipboard = true }
+  opt.on('-s', '--secret', 'Don\'t show any character when typing') { $options.secret = true }
+  opt.on('-r', '--random', 'Don\'t ask for a passphrase, use a random one.') {$options.random = true }
+
+  opt.on_tail('-h', '--help', 'Show this message') do
+    puts opt
+    exit
+  end
+end.parse!
+
+def ask_passphrase(prompt="Enter passphrase: ")
+  if $options.secret == true
+    $passphrase = ask(prompt) { |q| q.echo = nil }
+  else
+    $passphrase = ask(prompt) { |q| q.echo = "*" }
+  end
+  $passphrase_verify = $passphrase
+
+  return $passphrase
+end
+
+def ask_passphrase_verify
+  $passphrase = ask_passphrase()
+
+  if $options.secret == true
+    $passphrase_verify = ask("Verify passphrase: ") { |q| q.echo = nil }
+  else
+    $passphrase_verify = ask("Verify passphrase: ") { |q| q.echo = "*" }
+  end
+
+  if $passphrase != $passphrase_verify
+    puts red("Passphrases did not match")
+    exit
+  end
+end
+
+def magic(word)
+  word = Base64.encode64(Digest::SHA512.hexdigest (Digest::SHA384.hexdigest (Digest::MD5.hexdigest (Digest::SHA1.hexdigest word)))).gsub("\n","") + Base64.encode64(Digest::SHA512.hexdigest (Digest::SHA384.hexdigest (Digest::SHA1.hexdigest (Digest::MD5.hexdigest word)))).gsub("\n","")
+  return word
+end
+
+def cls
+  Gem.win_platform? ? (system "cls") : (system "reset")
+end
+
+def truncate(word)
+  length = $options.length
+  word = word.gsub("=","")
+  word = word[0, (length/2)-1] + word[-(length/2), length]
+  return word
+end
+
+def print_password(word)
+  timeout = $options.timeout
+
+  word = truncate(word)
+  puts "Your generated password is: #{green(word)}"
+
+
+  if $options.clipboard == true
+    Clipboard.copy word
+    puts blue("Password has been copied to your clipboard.")
+    puts red("Text in clipboard will be replaced with a fake after timer.")
+  end
+
+  t = Time.new(0) 
+  timeout.downto(0) do |seconds|
+    print "\rThe screen will clear in #{(t + seconds).strftime('%S')} seconds."
+    sleep 1
+  end
+  
+  if $options.clipboard == true
+    Clipboard.copy truncate(magic(SecureRandom.base64))
+  end
+  cls()
+end
+
+def main
+  if $options.length
+    $options.length = $options.length.to_i
+    if $options.length > 64
+      puts red("#{$options.length} can't be used as password length")
+      puts green("Maximum length is 64, using that.")
+      $options.length = 64
+    elsif $options.length < 16
+      puts red("#{$options.length} can't be used as password length")
+      puts green("Minimum length is 16, using that,")
+      $options.length = 16
+    end
+    puts green("Password will be #{$options.length} characters long")
+  end
+
+  if $options.random
+    puts "Your random passphrase is: "
+    print_password(magic(p SecureRandom.base64))
+    exit 130
+  end
+    
+  if $options.secret
+    puts green("Secret mode is activated")
+  end
+
+  if $options.verify
+    puts green("Verification is on")
+    ask_passphrase_verify()
+  else
+    ask_passphrase()
+  end
+
+  if $passphrase == $passphrase_verify
+    print_password(magic($passphrase))
+  end
+end
+
+if __FILE__ == $0
+  trap "SIGINT" do
+    exit 130
+  end
+  main()
+end
