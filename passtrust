@@ -19,8 +19,7 @@ $options.verify = false
 $options.length = 16
 $options.timeout = 10
 OptionParser.new do |opt|
-  opt.banner = """
-  PassTrust Password Generator
+  opt.banner = """  PassTrust Password Generator
 
   Usage: passtrust [options]"""
 
