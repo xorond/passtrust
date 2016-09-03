@@ -2,9 +2,7 @@
 sudo install -dm755 /usr/share/passtrust
 bundle install --no-deployment
 sudo cp passtrust Gemfile Gemfile.lock /usr/share/passtrust
-echo """
-#!/usr/bin/env bash
+echo """#!/usr/bin/env bash
 cd /usr/share/passtrust
-./passtrust "\$@"
-""" | sudo tee /usr/bin/passtrust >/dev/null
+./passtrust "\$@"""" | sudo tee /usr/bin/passtrust >/dev/null
 sudo chmod 755 /usr/bin/passtrust
