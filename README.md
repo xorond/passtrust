@@ -20,7 +20,8 @@ Installing passtrust for Linux is easy.
 ```
 $ git clone https://github.com/xorond/passtrust
 $ cd passtrust
-# apt-get install ruby ruby-highline
+# apt-get install ruby bundler
+$ bundler install
 # install -Dm755 passtrust /usr/bin
 $ passtrust
 ```
@@ -29,7 +30,8 @@ $ passtrust
 ```
 $ git clone https://github.com/xorond/passtrust
 $ cd passtrust
-# pacman -S ruby ruby-highline
+# pacman -S ruby ruby-bundler
+$ bundler install
 # install -Dm755 passtrust /usr/bin
 $ passtrust
 ```

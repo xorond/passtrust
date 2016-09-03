@@ -1,11 +1,8 @@
 #!/usr/bin/env ruby
-require 'optparse'
-require 'ostruct'
-require 'highline/import'
-# for the password generation
-require 'digest'
-require 'base64'
-require 'securerandom'
+require 'rubygems'
+require 'bundler/setup'
+Bundler.require(:default)
+
 
 # colorful text
 def colorize(text, color_code)
@@ -16,16 +13,7 @@ def red(text); colorize(text, 31); end
 def green(text); colorize(text, 32); end
 def blue(text); colorize(text, 34); end
 
-
-# for clipboard integration, this part is optional
-begin
-  require 'clipboard'
-rescue LoadError
-  puts red("Gem 'clipboard' was not found.")
-  puts red("Run 'sudo gem install clipboard' to get it for the clipboard functionalities.")
-end
-
-
+# define arguments
 $options = OpenStruct.new
 $options.verify = false
 $options.length = 16
