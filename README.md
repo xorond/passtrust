@@ -37,7 +37,10 @@ $ ./passtrust
 Alternatively, you can use the install script for a system-wide install:
 
 ```
-# ./install
+$ git clone https://github.com/xorond/passtrust
+$ cd install-scripts
+# ./linux-install OR 
+$ ./android-install
 $ passtrust
 ```
 

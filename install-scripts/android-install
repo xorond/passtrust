@@ -1,0 +1,9 @@
+#!/data/data/com.termux/files/usr/bin/bash
+mkdir -p /data/data/com.termux/files/usr/share/passtrust
+cp -a /data/data/com.termux/files/home/passtrust/* /data/data/com.termux/files/usr/share/passtrust
+cat > /data/data/com.termux/files/usr/bin/passtrust <<EOF
+#!/data/data/com.termux/files/usr/bin/bash
+cd /data/data/com.termux/files/usr/share/passtrust
+ruby passtrust "\$@"
+EOF
+chmod 755 /data/data/com.termux/files/usr/bin/passtrust
