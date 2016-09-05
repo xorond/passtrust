@@ -2,6 +2,8 @@
 apt install ruby
 mkdir -p /data/data/com.termux/files/usr/share/passtrust
 cp -a /data/data/com.termux/files/home/passtrust/* /data/data/com.termux/files/usr/share/passtrust
+cd /data/data/com.termux/files/usr/share/passtrust
+bundle install
 cat > /data/data/com.termux/files/usr/bin/passtrust <<EOF
 #!/data/data/com.termux/files/usr/bin/bash
 cd /data/data/com.termux/files/usr/share/passtrust
