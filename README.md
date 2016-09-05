@@ -41,6 +41,20 @@ Alternatively, you can use the install script for a system-wide install:
 $ passtrust
 ```
 
+**For Android:**
+
+* Get the Termux app from [Google Play](https://play.google.com/store/apps/details?id=com.termux) or [FDroid](https://f-droid.org/repository/browse/?fdid=com.termux).
+
+Run the following commands:
+```
+$ apt install git ruby
+$ git clone https://github.com/xorond/passtrust
+$ cd passtrust
+$ gem install bundler
+$ bundle install
+$ ruby passtrust
+```
+
 ## Usage
 
 Usage is pretty straightforward:
@@ -133,4 +147,5 @@ PassTrust has been tested under the following distributions:
 ```
 Archlinux
 Debian Jessie
+Android (Termux App)
 ```
