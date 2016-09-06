@@ -37,14 +37,10 @@ OptionParser.new do |opt|
 end.parse!
 
 def ask_passphrase(prompt="Enter passphrase: ")
-  if $options.secret == true
-    $passphrase = ask(prompt) { |q| q.echo = nil }
-  else
-    $passphrase = ask(prompt) { |q| q.echo = "*" }
-  end
+  $passphrase = ask(prompt) { |q| q.echo = $options.secret ? nil: "*" }
   $passphrase_verify = $passphrase
-
-  return $passphrase
+  $passphrase
+  # thanks, skarlso
 end
 
 def ask_passphrase_verify
