@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 gem 'highline', :require => 'highline/import'
 gem 'clipboard', :require => 'clipboard'
+gem 'zxcvbn-ruby', :require => 'zxcvbn'
 require 'optparse'
 require 'ostruct'
 require 'digest'

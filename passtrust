@@ -29,6 +29,7 @@ OptionParser.new do |opt|
   opt.on('-c', '--clipboard', 'Copy the password to the clipboard') { $options.clipboard = true }
   opt.on('-s', '--secret', 'Don\'t show any character when typing') { $options.secret = true }
   opt.on('-r', '--random', 'Don\'t ask for a passphrase, use a random one.') {$options.random = true }
+  opt.on('-p', '--pass_security', 'Check the security of passphrase.') { $options.passphrase_security = true }
 
   opt.on_tail('-h', '--help', 'Show this message') do
     puts opt
@@ -39,6 +40,9 @@ end.parse!
 def ask_passphrase(prompt="Enter passphrase: ")
   $passphrase = ask(prompt) { |q| q.echo = $options.secret ? nil: "*" }
   $passphrase_verify = $passphrase
+  if $options.passphrase_security
+    check_security($passphrase)
+  end
   $passphrase
   # thanks, skarlso
 end
@@ -50,6 +54,10 @@ def ask_passphrase_verify
   if $passphrase != $passphrase_verify
     puts red("Passphrases did not match")
     exit
+  end
+
+  if $options.passphrase_security
+    check_security($passphrase)
   end
 end
 
@@ -91,7 +99,18 @@ def print_password(word)
   if $options.clipboard == true
     Clipboard.copy truncate(magic(SecureRandom.base64))
   end
-  cls()
+  cls
+end
+
+def check_security(word)
+  puts green("Evaluating password security")
+  puts green("0 => bad password | 4 => good password")
+  score = Zxcvbn.test(word).score
+  puts score
+  if score < 3
+    puts "Password is too weak. Choose a better one."
+    exit 130
+  end
 end
 
 def main
@@ -117,6 +136,10 @@ def main
     
   if $options.secret
     puts green("Secret mode is activated")
+  end
+
+  if $options.passphrase_security
+    puts green("Password security testing is activated")
   end
 
   if $options.verify
