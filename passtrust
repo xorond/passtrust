@@ -46,12 +46,7 @@ end
 def ask_passphrase_verify
   $passphrase = ask_passphrase()
 
-  if $options.secret == true
-    $passphrase_verify = ask("Verify passphrase: ") { |q| q.echo = nil }
-  else
-    $passphrase_verify = ask("Verify passphrase: ") { |q| q.echo = "*" }
-  end
-
+  $passphrase_verify = ask("Verify passphrase: ") { |q| q.echo = $options.secret ? nil : "*" }
   if $passphrase != $passphrase_verify
     puts red("Passphrases did not match")
     exit
