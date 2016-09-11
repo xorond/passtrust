@@ -1,12 +1,12 @@
-#!/data/data/com.termux/files/usr/bin/bash
+#!${PREFIX}/bin/bash
 apt install ruby
-mkdir -p /data/data/com.termux/files/usr/share/passtrust
-cp -a /data/data/com.termux/files/home/passtrust/* /data/data/com.termux/files/usr/share/passtrust
-cd /data/data/com.termux/files/usr/share/passtrust
+mkdir -p ${PREFIX}/share/passtrust
+cp -a /data/data/com.termux/files/home/passtrust/* ${PREFIX}/share/passtrust
+cd ${PREFIX}/share/passtrust
 bundle install
-cat > /data/data/com.termux/files/usr/bin/passtrust <<EOF
-#!/data/data/com.termux/files/usr/bin/bash
-cd /data/data/com.termux/files/usr/share/passtrust
+cat > ${PREFIX}/bin/passtrust <<EOF
+#!${PREFIX}/bin/bash
+cd ${PREFIX}/share/passtrust
 ruby passtrust "\$@"
 EOF
-chmod 755 /data/data/com.termux/files/usr/bin/passtrust
+chmod 755 ${PREFIX}/bin/passtrust
