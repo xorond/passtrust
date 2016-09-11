@@ -1,4 +1,4 @@
-#!${PREFIX}/bin/bash
+#!//data/data/com.termux/files/usr/bin/bash
 apt install ruby
 mkdir -p ${PREFIX}/share/passtrust
 cp -a /data/data/com.termux/files/home/passtrust/* ${PREFIX}/share/passtrust
