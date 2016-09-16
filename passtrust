@@ -122,11 +122,7 @@ def main
     puts green("Password will be #{$options.length} characters long")
   end
 
-  if $options.random
-    puts "Your random passphrase is: "
-    print_password(magic(p SecureRandom.base64))
-    exit 130
-  end
+  (puts "Your random passphrase is: " ;print_password(magic(p SecureRandom.base64)); exit 130) if $options.random
    
   puts green("Secret mode is activated") if $options.secret
 
