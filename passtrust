@@ -19,9 +19,9 @@ $options.verify = false
 $options.length = 16
 $options.timeout = 10
 OptionParser.new do |opt|
-  opt.banner = """  PassTrust Password Generator
+  opt.banner = "  PassTrust Password Generator
 
-  Usage: passtrust [options]"""
+  Usage: passtrust [options]"
 
   opt.on('-v', '--verify', 'Ask the keyword twice') { $options.verify = true }
   opt.on('-l', '--length [LENGTH]', Integer, 'Change password length (default is 16, max is 64)') { |o| $options.length = o }
@@ -31,10 +31,7 @@ OptionParser.new do |opt|
   opt.on('-r', '--random', 'Don\'t ask for a passphrase, use a random one.') {$options.random = true }
   opt.on('-p', '--pass_security', 'Check the security of passphrase.') { $options.passphrase_security = true }
 
-  opt.on_tail('-h', '--help', 'Show this message') do
-    puts opt
-    exit
-  end
+  opt.on_tail('-h', '--help', 'Show this message') { puts opt; exit 130 }
 end.parse!
 
 def ask_passphrase(prompt="Enter passphrase: ")
