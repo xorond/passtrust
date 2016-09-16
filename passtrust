@@ -117,8 +117,6 @@ def main
 end
 
 if __FILE__ == $0
-  trap "SIGINT" do
-    exit 130
-  end
+  trap "SIGINT" do; exit 130; end
   main
 end
