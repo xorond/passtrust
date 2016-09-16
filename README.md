@@ -9,54 +9,8 @@ PassTrust is able to convert any simple string into a secure password between 16
 The generated passwords are very hard to brute-force, especially on the longer password settings.
 
 ## Installation
-Installing passtrust for Linux is easy.
 
-```
-(#) : Run as root
-($) : Run as normal user
-```
-
-**For Debian, Ubuntu and derivatives:**
-```
-$ git clone https://github.com/xorond/passtrust
-$ cd passtrust
-# apt-get install ruby bundler
-$ bundler install
-$ ./passtrust
-```
-
-**For Archlinux:**
-```
-$ git clone https://github.com/xorond/passtrust
-$ cd passtrust
-# pacman -S ruby ruby-bundler
-$ bundler install
-$ ./passtrust
-```
-
-Alternatively, you can use the install script for a system-wide install:
-
-```
-$ git clone https://github.com/xorond/passtrust
-$ cd install-scripts
-# ./linux-install OR 
-$ ./android-install
-$ passtrust
-```
-
-**For Android:**
-
-* Get the Termux app from [Google Play](https://play.google.com/store/apps/details?id=com.termux) or [FDroid](https://f-droid.org/repository/browse/?fdid=com.termux).
-
-Run the following commands:
-```
-$ apt install git ruby
-$ git clone https://github.com/xorond/passtrust
-$ cd passtrust
-$ gem install bundler
-$ bundle install
-$ ruby passtrust
-```
+For installation instructions, look at the [INSTALL.md file](https://github.com/xorond/passtrust/blob/master/INSTALL.md)
 
 ## Usage
 
