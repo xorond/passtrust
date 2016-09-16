@@ -13,8 +13,8 @@ def red(text); colorize(text, 31); end
 def green(text); colorize(text, 32); end
 def blue(text); colorize(text, 34); end
 
-# define arguments
 $options = OpenStruct.new
+# default options
 $options.verify = false
 $options.length = 16
 $options.timeout = 10
@@ -40,25 +40,17 @@ end.parse!
 def ask_passphrase(prompt="Enter passphrase: ")
   $passphrase = ask(prompt) { |q| q.echo = $options.secret ? nil: "*" }
   $passphrase_verify = $passphrase
-  if $options.passphrase_security
-    check_security($passphrase)
-  end
+  check_security($passphrase) if $options.passphrase_security
   $passphrase
-  # thanks, skarlso
 end
 
 def ask_passphrase_verify
   $passphrase = ask_passphrase()
 
   $passphrase_verify = ask("Verify passphrase: ") { |q| q.echo = $options.secret ? nil : "*" }
-  if $passphrase != $passphrase_verify
-    puts red("Passphrases did not match")
-    exit
-  end
-
-  if $options.passphrase_security
-    check_security($passphrase)
-  end
+  # verify passphrase
+  (puts red("Passphrases did not match") ; exit 130) if $passphrase != $passphrase_verify
+  check_security($passphrase) if $options.passphrase_security
 end
 
 def magic(word)
@@ -84,7 +76,7 @@ def print_password(word)
   puts "Your generated password is: #{green(word)}"
 
 
-  if $options.clipboard == true
+  if $options.clipboard
     Clipboard.copy word
     puts blue("Password has been copied to your clipboard.")
     puts red("Text in clipboard will be replaced with a fake after timer.")
@@ -109,7 +101,6 @@ end
 
 def main
   if $options.length
-    $options.length = $options.length.to_i
     if $options.length > 64
       puts red("#{$options.length} can't be used as password length")
       puts green("Maximum length is 64, using that.")
@@ -122,7 +113,7 @@ def main
     puts green("Password will be #{$options.length} characters long")
   end
 
-  (puts "Your random passphrase is: " ;print_password(magic(p SecureRandom.base64)); exit 130) if $options.random
+  (puts "Your random passphrase is: " ; print_password(magic(p SecureRandom.base64)); exit 130) if $options.random
    
   puts green("Secret mode is activated") if $options.secret
 
