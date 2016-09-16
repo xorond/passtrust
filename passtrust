@@ -96,21 +96,15 @@ def print_password(word)
     sleep 1
   end
   
-  if $options.clipboard == true
-    Clipboard.copy truncate(magic(SecureRandom.base64))
-  end
+  Clipboard.copy truncate(magic(SecureRandom.base64)) if $options.clipboard
   cls
 end
 
 def check_security(word)
-  puts green("Evaluating password security")
-  puts green("0 => bad password | 4 => good password")
+  puts green("Evaluating password security\n0 -> bad password | 4 -> good password")
   score = Zxcvbn.test(word).score
-  puts score
-  if score < 3
-    puts "Password is too weak. Choose a better one."
-    exit 130
-  end
+  puts "Password score: #{score}"
+  if score < 3; puts "Password is too weak. Choose a better one."; exit 130; end
 end
 
 def main
@@ -133,17 +127,15 @@ def main
     print_password(magic(p SecureRandom.base64))
     exit 130
   end
-    
-  $options.secret ? (puts green("Secret mode is activated")) : pass
+   
+  puts green("Secret mode is activated") if $options.secret
 
-  $options.passphrase_security ? (puts green("Password security testing is activated")) : pass
+  puts green("Password security testing is activated") if $options.passphrase_security
 
   $options.verify ? (puts green("Verification is on"); ask_passphrase_verify) : ask_passphrase
 
-  ($passphrase == $passphrase_verify) ? (print_password(magic($passphrase))) : pass
-end
+  print_password(magic($passphrase)) if $passphrase == $passphrase_verify
 
-def pass
 end
 
 if __FILE__ == $0
