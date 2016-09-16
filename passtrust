@@ -5,9 +5,7 @@ Bundler.require(:default)
 
 
 # colorful text
-def colorize(text, color_code)
-  "\e[#{color_code}m#{text}\e[0m"
-end
+def colorize(text, color_code); "\e[#{color_code}m#{text}\e[0m"; end
 
 def red(text); colorize(text, 31); end
 def green(text); colorize(text, 32); end
@@ -42,11 +40,11 @@ def ask_passphrase(prompt="Enter passphrase: ")
 end
 
 def ask_passphrase_verify
-  $passphrase = ask_passphrase()
+  $passphrase = ask_passphrase
 
   $passphrase_verify = ask("Verify passphrase: ") { |q| q.echo = $options.secret ? nil : "*" }
   # verify passphrase
-  (puts red("Passphrases did not match") ; exit 130) if $passphrase != $passphrase_verify
+  puts red("Passphrases did not match") ; exit 130 if $passphrase != $passphrase_verify
   check_security($passphrase) if $options.passphrase_security
 end
 
@@ -85,8 +83,7 @@ def print_password(word)
     sleep 1
   end
   
-  Clipboard.copy truncate(magic(SecureRandom.base64)) if $options.clipboard
-  cls
+  Clipboard.copy truncate(magic(SecureRandom.base64)) if $options.clipboard; cls
 end
 
 def check_security(word)
@@ -110,7 +107,7 @@ def main
     puts green("Password will be #{$options.length} characters long")
   end
 
-  (puts "Your random passphrase is: " ; print_password(magic(p SecureRandom.base64)); exit 130) if $options.random
+  puts "Your random passphrase is: " ; print_password(magic(p SecureRandom.base64)); exit 130 if $options.random
    
   puts green("Secret mode is activated") if $options.secret
 
@@ -126,5 +123,5 @@ if __FILE__ == $0
   trap "SIGINT" do
     exit 130
   end
-  main()
+  main
 end
