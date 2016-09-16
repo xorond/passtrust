@@ -94,20 +94,18 @@ def check_security(word)
 end
 
 def main
-  if $options.length
-    if $options.length > 64
-      puts red("#{$options.length} can't be used as password length")
-      puts green("Maximum length is 64, using that.")
-      $options.length = 64
-    elsif $options.length < 16
-      puts red("#{$options.length} can't be used as password length")
-      puts green("Minimum length is 16, using that,")
-      $options.length = 16
-    end
-    puts green("Password will be #{$options.length} characters long")
+  if $options.length > 64
+    puts red("#{$options.length} can't be used as password length")
+    puts green("Maximum length is 64, using that.")
+    $options.length = 64
+  elsif $options.length < 16
+    puts red("#{$options.length} can't be used as password length")
+    puts green("Minimum length is 16, using that,")
+    $options.length = 16
   end
+  puts green("Password will be #{$options.length} characters long")
 
-  puts "Your random passphrase is: " ; print_password(magic(p SecureRandom.base64)); exit 130 if $options.random
+  (puts "Your random passphrase is: " ; print_password(magic(p SecureRandom.base64)); exit 130) if $options.random
    
   puts green("Secret mode is activated") if $options.secret
 
@@ -116,7 +114,6 @@ def main
   $options.verify ? (puts green("Verification is on"); ask_passphrase_verify) : ask_passphrase
 
   print_password(magic($passphrase)) if $passphrase == $passphrase_verify
-
 end
 
 if __FILE__ == $0
