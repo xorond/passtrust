@@ -63,7 +63,7 @@ end
 
 def magic(word)
   word = Base64.encode64(Digest::SHA512.hexdigest (Digest::SHA384.hexdigest (Digest::SHA2.hexdigest (Digest::SHA1.hexdigest word)))).gsub("\n","") + Base64.encode64(Digest::SHA512.hexdigest (Digest::SHA384.hexdigest (Digest::SHA1.hexdigest (Digest::SHA2.hexdigest word)))).gsub("\n","")
-  return word
+  word
 end
 
 def cls
@@ -74,7 +74,7 @@ def truncate(word)
   length = $options.length
   word = word.gsub("=","")
   word = word[0, (length/2)-1] + word[-(length/2), length]
-  return word
+  word
 end
 
 def print_password(word)
