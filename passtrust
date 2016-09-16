@@ -134,24 +134,16 @@ def main
     exit 130
   end
     
-  if $options.secret
-    puts green("Secret mode is activated")
-  end
+  $options.secret ? (puts green("Secret mode is activated")) : pass
 
-  if $options.passphrase_security
-    puts green("Password security testing is activated")
-  end
+  $options.passphrase_security ? (puts green("Password security testing is activated")) : pass
 
-  if $options.verify
-    puts green("Verification is on")
-    ask_passphrase_verify()
-  else
-    ask_passphrase()
-  end
+  $options.verify ? (puts green("Verification is on"); ask_passphrase_verify) : ask_passphrase
 
-  if $passphrase == $passphrase_verify
-    print_password(magic($passphrase))
-  end
+  ($passphrase == $passphrase_verify) ? (print_password(magic($passphrase))) : pass
+end
+
+def pass
 end
 
 if __FILE__ == $0
