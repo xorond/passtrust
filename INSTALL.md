@@ -7,11 +7,11 @@
 ($) : Run as normal user
 ```
 
+* Get the latest version from the [releases page](https://github.com/xorond/passtrust/releases)
+
 ### Archlinux
 
 ```
-$ git clone https://github.com/xorond/passtrust
-$ cd passtrust
 # pacman -S ruby ruby-bundler
 $ bundler install
 ```
@@ -19,8 +19,6 @@ $ bundler install
 ### Debian, Ubuntu and derivatives
 
 ```
-$ git clone https://github.com/xorond/passtrust
-$ cd passtrust
 # apt-get install ruby bundler
 $ bundler install
 ```
