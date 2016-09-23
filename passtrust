@@ -13,6 +13,7 @@ def blue(text); colorize(text, 34); end
 
 $options = OpenStruct.new
 # default options
+$version = 1.0
 $options.verify = false
 $options.length = 16
 $options.timeout = 10
@@ -30,6 +31,7 @@ OptionParser.new do |opt|
   opt.on('-p', '--pass_security', 'Check the security of passphrase.') { $options.passphrase_security = true }
 
   opt.on_tail('-h', '--help', 'Show this message') { puts opt; exit 130 }
+  opt.on_tail('-V', '--version', 'Show version info') { puts $version; exit 130 }
 end.parse!
 
 def ask_passphrase(prompt="Enter passphrase: ")
