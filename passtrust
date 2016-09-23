@@ -13,7 +13,7 @@ def blue(text); colorize(text, 34); end
 
 $options = OpenStruct.new
 # default options
-$version = 1.0
+$version = 1.01
 $options.verify = false
 $options.length = 16
 $options.timeout = 10
@@ -83,7 +83,7 @@ def print_password(word)
     sleep 1
   end
   
-  Clipboard.copy truncate(magic(SecureRandom.base64)) if $options.clipboard; cls
+  ( 3.times { Clipboard.copy truncate(magic(SecureRandom.base64)) } ) if $options.clipboard; cls
 end
 
 def check_security(word)
