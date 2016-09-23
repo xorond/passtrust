@@ -103,6 +103,8 @@ A big inspiration for this project was [passera](https://github.com/mwgg/passera
 PassTrust has been tested under the following distributions:
 ```
 Archlinux
+Archlinux ARM
 Debian Jessie
+Raspbian
 Android (Termux App)
 ```
