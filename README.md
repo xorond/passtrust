@@ -107,4 +107,5 @@ Archlinux ARM
 Debian Jessie
 Raspbian
 Android (Termux App)
+Windows 7
 ```

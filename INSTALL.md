@@ -61,16 +61,12 @@ You should now be able to use passtrust like any other command.
 
 ## For Windows
 
-In theory, the following steps should work for installing on Windows.
-
 * Install [Ruby](http://rubyinstaller.org/)
 
-* Download the [zipped repository](https://github.com/xorond/passtrust/archive/master.zip)
+* Get the latest release from the [releases page](https://github.com/xorond/passtrust/releases)
 
 * Extract the zip file
 
-* `gem install bundler` and then `bundle install` inside the extracted directory
+* `gem install bundler` and then `bundle install --without optional` inside the extracted directory
 
 * `ruby passtrust` should work now.
-
-Please note that I did not try this, so there may be something missing or wrong. Feel free to open up a pull request/issue related to this.
