@@ -11,6 +11,8 @@
 
 ### Archlinux
 
+NOTE: You can directly get a package from [the AUR](https://aur.archlinux.org/packages/passtrust)
+
 ```
 # pacman -S ruby ruby-bundler
 $ bundler install
