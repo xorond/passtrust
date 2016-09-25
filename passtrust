@@ -72,9 +72,13 @@ def print_password(word)
 
 
   if $options.clipboard
-    Clipboard.copy word
-    puts blue("Password has been copied to your clipboard.")
-    puts red("Text in clipboard will be replaced with a fake after timer.")
+    begin
+      Clipboard.copy word
+      puts blue("Password has been copied to your clipboard.")
+      puts red("Text in clipboard will be replaced with a fake after timer.")
+    rescue
+      puts red("Clipboard gem is not installed")
+    end
   end
 
   t = Time.new(0) 
@@ -83,7 +87,14 @@ def print_password(word)
     sleep 1
   end
   
-  ( 3.times { Clipboard.copy truncate(magic(SecureRandom.base64)) } ) if $options.clipboard; cls
+  if $options.clipboard
+    begin
+      3.times { Clipboard.copy truncate(magic(SecureRandom.base64)) }
+    rescue
+      puts red("Clipboard gem is not installed")
+    end
+  end
+  cls
 end
 
 def check_security(word)

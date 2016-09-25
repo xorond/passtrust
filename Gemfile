@@ -1,8 +1,10 @@
 source 'https://rubygems.org'
 gem 'highline', :require => 'highline/import'
-gem 'clipboard', :require => 'clipboard'
-gem 'ffi', :platforms => [:mswin, :mingw]
 gem 'zxcvbn-ruby', :require => 'zxcvbn'
+group :optional do
+  gem 'clipboard'
+  gem 'ffi', :platforms => [:mswin, :mingw]
+end
 require 'optparse'
 require 'ostruct'
 require 'digest'
