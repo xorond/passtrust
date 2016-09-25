@@ -2,6 +2,11 @@
 require 'rubygems'
 require 'bundler/setup'
 Bundler.require(:default)
+begin
+  require 'clipboard'
+rescue LoadError
+  puts ("\e[31mClipboard functionalities are disabled because of missing `clipboard` gem.\e[0m")
+end
 
 
 # colorful text
