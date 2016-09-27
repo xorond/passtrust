@@ -103,10 +103,16 @@ def print_password(word)
 end
 
 def check_security(word)
-  puts green("Evaluating password security\n0 -> bad password | 4 -> good password")
+  puts green("Evaluating password security\n0-2 -> bad password | 3-4 -> good password")
   score = Zxcvbn.test(word).score
-  puts "Password score: #{score}"
-  if score < 3; puts "Password is too weak. Choose a better one."; exit 130; end
+  puts case score
+    when 0; red("Score: #{score}")
+    when 1; red("Score: #{score}")
+    when 2; red("Score: #{score}")
+    when 3; green("Score: #{score}")
+    when 4; green("Score: #{score}")
+  end
+  puts red("Password is too weak. Choose a better one."); exit 130 if score < 3
 end
 
 def main
@@ -127,6 +133,7 @@ def main
 
   puts green("Password security testing is activated") if $options.passphrase_security
 
+  # check if there is verification
   $options.verify ? (puts green("Verification is on"); ask_passphrase_verify) : ask_passphrase
 
   print_password(magic($passphrase)) if $passphrase == $passphrase_verify
