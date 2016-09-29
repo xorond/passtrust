@@ -112,7 +112,7 @@ def check_security(word)
     when 3; green("Score: #{score}")
     when 4; green("Score: #{score}")
   end
-  puts red("Password is too weak. Choose a better one."); exit 130 if score < 3
+  (puts red("Password is too weak. Choose a better one."); exit 130) if score < 3
 end
 
 def main
