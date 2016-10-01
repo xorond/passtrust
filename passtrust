@@ -83,7 +83,7 @@ def print_password(word)
   end
   
   if $options.clipboard
-    3.times { Clipboard.copy truncate(magic(SecureRandom.base64)) }
+    3.times { Clipboard.copy truncate(magic(Sysrandom.hex(16))) }
   end
   cls
 end
@@ -116,7 +116,7 @@ def main
   # disable clipboard option if clipboard gem is not loaded
   $options.clipboard = false if not defined?(Clipboard)
 
-  (puts "Your random passphrase is: " ; print_password(magic(p SecureRandom.base64)); exit 130) if $options.random
+  (puts "Your random passphrase is: " ; print_password(magic(p Sysrandom.hex(16))); exit 130) if $options.random
    
   puts green("Secret mode is activated") if $options.secret
 

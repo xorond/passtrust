@@ -3,6 +3,7 @@ GEM
   specs:
     clipboard (1.1.1)
     highline (1.7.8)
+    sysrandom (1.0.3)
     zxcvbn-ruby (0.1.1)
 
 PLATFORMS
@@ -12,7 +13,8 @@ DEPENDENCIES
   clipboard
   ffi
   highline
+  sysrandom
   zxcvbn-ruby
 
 BUNDLED WITH
-   1.13.1
+   1.13.2
