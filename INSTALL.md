@@ -25,7 +25,7 @@ $ bundler install
 $ bundler install
 ```
 
-To install the `passtrust` binary on your path, run the following after running your distro-specific commands:
+To install the `passtrust` binary on your `$PATH`, run the following after running your distro-specific commands:
 
 ```
 $ cd install-scripts
@@ -52,7 +52,7 @@ $ gem install bundler
 $ bundle install
 ```
 
-You can then run passtrust inside that directory with `ruby passtrust`. If you want to install it on your path, run the following after the ones above:
+You can then run passtrust inside that directory with `ruby passtrust`. If you want to install it on your `$PATH`, run the following after the ones above:
 
 ```
 $ cd install-scripts
