@@ -129,6 +129,6 @@ def main
 end
 
 if __FILE__ == $0
-  trap "SIGINT" do; exit 130; end
+  trap "SIGINT" do; puts "\r\nTerminated by user."; exit 130; end
   main
 end
