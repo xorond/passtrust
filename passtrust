@@ -129,6 +129,12 @@ def main
 end
 
 if __FILE__ == $0
-  trap "SIGINT" do; puts "\r\nTerminated by user."; exit 130; end
+  trap "SIGINT" do
+    puts "\r\nTerminated by user."
+    if defined?(Clipboard)
+      Clipboard.copy(truncate (magic(Sysrandom.hex(16))))
+    end
+    exit 130
+  end
   main
 end
