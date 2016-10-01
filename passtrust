@@ -53,9 +53,7 @@ def magic(word)
   word = Base64.encode64(Digest::SHA512.hexdigest (Digest::SHA384.hexdigest (Digest::SHA2.hexdigest (Digest::SHA1.hexdigest word)))).gsub("\n","") + Base64.encode64(Digest::SHA512.hexdigest (Digest::SHA384.hexdigest (Digest::SHA1.hexdigest (Digest::SHA2.hexdigest word)))).gsub("\n","")
 end
 
-def cls
-  Gem.win_platform? ? (system "cls") : (system "reset")
-end
+def cls ;Gem.win_platform? ? (system "cls") : (system "reset"); end
 
 def truncate(word)
   length = $options.length
