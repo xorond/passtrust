@@ -90,11 +90,8 @@ def check_security(word)
   puts blue("Evaluating password security")
   score = Zxcvbn.test(word).score
   puts case score
-    when 0; red("Score: #{score}/4")
-    when 1; red("Score: #{score}/4")
-    when 2; red("Score: #{score}/4")
-    when 3; green("Score: #{score}/4")
-    when 4; green("Score: #{score}/4")
+    when 0, 1, 2; red("Score: #{score}/4")
+    when 3, 4; green("Score: #{score}/4")
   end
   (puts red("Password is too weak. Choose a better one."); exit 130) if score < 3
 end
