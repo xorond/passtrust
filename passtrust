@@ -71,7 +71,7 @@ def print_password(word)
   if $options.clipboard
     Clipboard.copy word
     puts blue("Password has been copied to your clipboard.")
-    puts red("Text in clipboard will be replaced with a fake after timer.")
+    puts blue("Text in clipboard will be replaced with a fake after timer.")
   end
 
   t = Time.new(0) 
