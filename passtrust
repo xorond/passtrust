@@ -81,7 +81,11 @@ def print_password(word)
   end
   
   if $options.clipboard
-    3.times { Clipboard.copy truncate(magic(Sysrandom.hex(16))) }
+    begin
+      3.times { Clipboard.copy truncate(magic(Sysrandom.hex(16))) }
+    rescue
+      3.times { Clipboard.copy truncate(magic(SecureRandom.hex(16))) }
+    end
   end
   cls
 end
@@ -111,7 +115,15 @@ def main
   # disable clipboard option if clipboard gem is not loaded
   $options.clipboard = false if not defined?(Clipboard)
 
-  (puts "Your random passphrase is: " ; print_password(magic(p Sysrandom.hex(16))); exit 130) if $options.random
+  if $options.random
+    puts "Your random passphrase is: "
+    begin
+      print_password(magic(p Sysrandom.hex(16)))
+    rescue
+      print_password(magic(p SecureRandom.hex(16)))
+    end
+    exit 130
+  end
    
   puts green("Secret mode is activated") if $options.secret
 
@@ -123,15 +135,24 @@ def main
   print_password(magic($passphrase))
 end
 
+def leave
+  begin
+    if defined?(Clipboard)
+      Clipboard.copy(truncate (magic(Sysrandom.hex(16))))
+    end
+  rescue
+    if defined?(Clipboard)
+      Clipboard.copy(truncate (magic(SecureRandom.hex(16))))
+    end
+    ensure
+  end
+  exit 130
+end
+
 if __FILE__ == $0
   trap "SIGINT" do
     puts "\r\nTerminated by user."
-    begin
-      if defined?(Clipboard)
-        Clipboard.copy(truncate (magic(Sysrandom.hex(16))))
-      end
-    rescue; end
-    exit 130
+    leave
   end
   main
 end
