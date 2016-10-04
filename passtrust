@@ -144,7 +144,6 @@ def leave
     if defined?(Clipboard)
       Clipboard.copy(truncate (magic(SecureRandom.hex(16))))
     end
-    ensure
   end
   exit 130
 end
@@ -152,7 +151,11 @@ end
 if __FILE__ == $0
   trap "SIGINT" do
     puts "\r\nTerminated by user."
-    leave
+    begin
+      leave
+    rescue
+      exit 130
+    end
   end
   main
 end
