@@ -3,7 +3,7 @@ apt install ruby
 mkdir -p ${PREFIX}/share/passtrust
 cp -a /data/data/com.termux/files/home/passtrust/* ${PREFIX}/share/passtrust
 cd ${PREFIX}/share/passtrust
-bundle install --with optional
+bundle install --without optional
 cat > ${PREFIX}/bin/passtrust <<EOF
 #!${PREFIX}/bin/bash
 cd ${PREFIX}/share/passtrust
