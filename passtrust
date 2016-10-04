@@ -138,11 +138,11 @@ end
 def leave
   begin
     if defined?(Clipboard)
-      Clipboard.copy(truncate (magic(Sysrandom.hex(16))))
+      Clipboard.copy (truncate(magic(Sysrandom.hex(16))))
     end
   rescue
     if defined?(Clipboard)
-      Clipboard.copy(truncate (magic(SecureRandom.hex(16))))
+      Clipboard.copy (truncate(magic(SecureRandom.hex(16))))
     end
   end
   exit 130
