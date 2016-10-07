@@ -51,20 +51,16 @@ end
 
 def magic(word)
   word = Base64.encode64(Digest::SHA512.hexdigest (Digest::SHA384.hexdigest (Digest::SHA2.hexdigest (Digest::SHA1.hexdigest word)))).gsub("\n","") + Base64.encode64(Digest::SHA512.hexdigest (Digest::SHA384.hexdigest (Digest::SHA1.hexdigest (Digest::SHA2.hexdigest word)))).gsub("\n","")
+  length = $options.length
+  word.gsub!("=","")
+  word = word[0, (length/2)-1] + word[-(length/2), length]
 end
 
 def cls ;Gem.win_platform? ? (system "cls") : (system "reset"); end
 
-def truncate(word)
-  length = $options.length
-  word = word.gsub("=","")
-  word = word[0, (length/2)-1] + word[-(length/2), length]
-end
-
 def print_password(word)
   timeout = $options.timeout
 
-  word = truncate(word)
   puts "Your generated password is: #{green(word)}"
 
 
@@ -81,7 +77,7 @@ def print_password(word)
   end
   
   if $options.clipboard
-    3.times { Clipboard.copy truncate(magic(SecureRandom.hex(16))) }
+    3.times { Clipboard.copy magic(SecureRandom.hex(16)) }
   end
   cls
 end
@@ -128,9 +124,7 @@ def main
 end
 
 def leave
-  if defined?(Clipboard)
-    Clipboard.copy (truncate(magic(SecureRandom.hex(16))))
-  end
+  Clipboard.copy magic(SecureRandom.hex(16)) if defined?(Clipboard)
   exit 130
 end
 
