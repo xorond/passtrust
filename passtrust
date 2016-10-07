@@ -8,7 +8,6 @@ rescue LoadError
   puts ("\e[31mClipboard functionalities are disabled because of missing `clipboard` gem.\e[0m")
 end
 
-
 # colorful text
 def colorize(text, color_code); "\e[#{color_code}m#{text}\e[0m"; end
 def red(text); colorize(text, 31); end
