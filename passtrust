@@ -131,11 +131,7 @@ end
 if __FILE__ == $0
   trap "SIGINT" do
     puts "\r\nTerminated by user."
-    begin
-      leave
-    rescue
-      exit 130
-    end
+    begin; leave; rescue; exit 130; end
   end
   main
 end
