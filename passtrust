@@ -11,7 +11,6 @@ end
 
 # colorful text
 def colorize(text, color_code); "\e[#{color_code}m#{text}\e[0m"; end
-
 def red(text); colorize(text, 31); end
 def green(text); colorize(text, 32); end
 def blue(text); colorize(text, 34); end
@@ -63,19 +62,18 @@ def print_password(word)
 
   puts "Your generated password is: #{green(word)}"
 
-
   if $options.clipboard
     Clipboard.copy word
     puts blue("Password has been copied to your clipboard.")
     puts blue("Text in clipboard will be replaced with a fake after timer.")
   end
 
-  t = Time.new(0) 
+  t = Time.new(0)
   timeout.downto(0) do |seconds|
     print "\rThe screen will clear in #{(t + seconds).strftime('%M:%S')} seconds."
     sleep 1
   end
-  
+
   if $options.clipboard
     3.times { Clipboard.copy magic(SecureRandom.hex(16)) }
   end
@@ -112,7 +110,7 @@ def main
     print_password(magic(p SecureRandom.hex(16)))
     exit 130
   end
-   
+
   puts green("Secret mode is activated") if $options.secret
 
   puts green("Password security testing is activated") if $options.passphrase_security
