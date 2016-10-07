@@ -3,7 +3,7 @@ gem 'highline', :require => 'highline/import'
 gem 'zxcvbn-ruby', :require => 'zxcvbn'
 group :optional do
   gem 'clipboard'
-  gem 'sysrandom', :require => 'sysrandom'
+  gem 'sysrandom', :require => 'sysrandom/securerandom'
   gem 'ffi', :platforms => [:mswin, :mingw]
 end
 require 'optparse'

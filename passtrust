@@ -81,11 +81,7 @@ def print_password(word)
   end
   
   if $options.clipboard
-    begin
-      3.times { Clipboard.copy truncate(magic(Sysrandom.hex(16))) }
-    rescue
-      3.times { Clipboard.copy truncate(magic(SecureRandom.hex(16))) }
-    end
+    3.times { Clipboard.copy truncate(magic(SecureRandom.hex(16))) }
   end
   cls
 end
@@ -117,11 +113,7 @@ def main
 
   if $options.random
     puts "Your random passphrase is: "
-    begin
-      print_password(magic(p Sysrandom.hex(16)))
-    rescue
-      print_password(magic(p SecureRandom.hex(16)))
-    end
+    print_password(magic(p SecureRandom.hex(16)))
     exit 130
   end
    
@@ -136,14 +128,8 @@ def main
 end
 
 def leave
-  begin
-    if defined?(Clipboard)
-      Clipboard.copy (truncate(magic(Sysrandom.hex(16))))
-    end
-  rescue
-    if defined?(Clipboard)
-      Clipboard.copy (truncate(magic(SecureRandom.hex(16))))
-    end
+  if defined?(Clipboard)
+    Clipboard.copy (truncate(magic(SecureRandom.hex(16))))
   end
   exit 130
 end
