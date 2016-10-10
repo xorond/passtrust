@@ -18,16 +18,20 @@ Usage is pretty straightforward:
 
 ```
 $ passtrust -h
+
   PassTrust Password Generator
 
-    Usage: passtrust [options]
+  Usage: passtrust [options]
     -v, --verify                     Ask the keyword twice
     -l, --length [LENGTH]            Change password length (default is 16, max is 64)
     -t, --timeout [SECONDS]          Change the amount of seconds the password will be on screen (default is 10)
     -c, --clipboard                  Copy the password to the clipboard
     -s, --secret                     Don't show any character when typing
     -r, --random                     Don't ask for a passphrase, use a random one.
+    -p, --pass_security              Check the security of passphrase.
     -h, --help                       Show this message
+    -V, --version                    Show version info
+
 ```
 
 To use the default options, run passtrust without arguments.
