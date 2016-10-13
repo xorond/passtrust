@@ -111,6 +111,8 @@ class Passtrust
     @passphrase = ask(prompt) { |q| q.echo = @options_secret ? nil : "*" }
     if @options_verify
       verify_passphrase
+    elsif @options_security
+      check_security(@passphrase)
     end
   end
 
