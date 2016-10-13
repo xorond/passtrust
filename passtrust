@@ -11,7 +11,7 @@ end
 $options = OpenStruct.new
 
 # default options
-$version = "2.0"
+$version = "2.1"
 $options.length = 16
 $options.timeout = 10
 
