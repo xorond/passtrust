@@ -11,7 +11,7 @@ end
 $options = OpenStruct.new
 
 # default options
-$version = "2.1"
+$version = "2.1.dev"
 $options.length = 16
 $options.timeout = 10
 
@@ -25,7 +25,6 @@ OptionParser.new do |opt|
   opt.on('-l', '--length [length]', Integer, 'Change password length (min 16 max 64)') { |o| $options.length = o }
   opt.on('-t', '--timeout [seconds]', Integer, 'Change default timeout (10 seconds)') { |o| $options.timeout = o }
   opt.on('-c', '--clipboard', 'Copy generated password to clipboard') { $options.clipboard = true }
-  opt.on('-s', '--secret', 'Do not echo characters while typing') { $options.secret = true }
   opt.on('-r', '--random', 'Use a random passphrase') { $options.random = true }
   opt.on('-p', '--pass_security', 'Check security of passphrase') { $options.security = true }
 
@@ -68,7 +67,6 @@ class Passtrust
     @options_random = $options.random
     @options_security = $options.security
     @options_verify = $options.verify
-    @options_secret = $options.secret
 
     @colorizer = ColorText.new
     @magic = Magic.new
@@ -94,10 +92,6 @@ class Passtrust
       exit 130
     end
 
-    if @options_secret
-      puts @colorizer.green("Secret mode is activated")
-    end
-
     if @options_security
       puts @colorizer.green("Security testing is activated")
     end
@@ -108,7 +102,7 @@ class Passtrust
   end
 
   def get_passphrase(prompt="Enter passphrase: ")
-    @passphrase = ask(prompt) { |q| q.echo = @options_secret ? nil : "*" }
+    @passphrase = ask(prompt) { |q| q.echo = nil }
     if @options_verify
       verify_passphrase
     elsif @options_security
@@ -117,7 +111,7 @@ class Passtrust
   end
 
   def verify_passphrase
-    @verify = ask("Verify passphrase: ") { |q| q.echo = @options_secret ? nil : "*" }
+    @verify = ask("Verify passphrase: ") { |q| q.echo = nil }
     if !(@passphrase == @verify)
       puts @colorizer.red("Passphrases did not match")
       exit 130
