@@ -12,7 +12,6 @@ $ passtrust -h
   -l, --length [length]            Change password length (min 16 max 64)
   -t, --timeout [seconds]          Change default timeout (10 seconds)
   -c, --clipboard                  Copy generated password to clipboard
-  -s, --secret                     Do not echo characters while typing
   -r, --random                     Use a random passphrase
   -p, --pass_security              Check security of passphrase
   -h, --help                       Show this text
@@ -24,7 +23,7 @@ $ passtrust -h
 ```
 $ passtrust
 Password will be 16 characters long
-Enter passphrase: ****
+Enter passphrase:
 Your generated password is: NjRiNDYjMGI0OWQ
 ```
 
@@ -34,8 +33,8 @@ Your generated password is: NjRiNDYjMGI0OWQ
 $ passtrust -v
 Password will be 16 characters long
 Verification is activated
-Enter passphrase: ****
-Verify passphrase: ****
+Enter passphrase:
+Verify passphrase:
 Passphrase verified
 Your generated password is: NjRiNDYjMGI0OWQ
 The screen will clear in 00:10 seconds
@@ -45,8 +44,8 @@ The screen will clear in 00:10 seconds
 $ passtrust -v
 Password will be 16 characters long
 Verification is activated
-Enter passphrase: ****
-Verify passphrase: *
+Enter passphrase:
+Verify passphrase:
 Passphrases did not match
 ```
 
@@ -56,7 +55,7 @@ Passphrases did not match
 ```
 $ passtrust -t 30
 Password will be 16 characters long
-Enter passphrase: ****
+Enter passphrase:
 Your generated password is: NjRiNDYjMGI0OWQ
 The screen will clear in 00:30 seconds
 ```
@@ -66,19 +65,8 @@ The screen will clear in 00:30 seconds
 ```
 $ passtrust -l 32
 Password will be 32 characters long
-Enter passphrase: ****
+Enter passphrase:
 Your generated password is: NjRiNDYwYjEzOWYjOGNjZThjMGI0OWQ
-The screen will clear in 00:10 seconds
-```
-
-### Do not echo characters as the user types
-
-```
-$ passtrust -s
-Password will be 16 characters long
-Secret mode is activated
-Enter passphrase: 
-Your generated password is: NjRiNDYjMGI0OWQ
 The screen will clear in 00:10 seconds
 ```
 
@@ -87,8 +75,7 @@ The screen will clear in 00:10 seconds
 ```
 $ passtrust -c
 Password will be 16 characters long
-Enter passphrase: ****
-Your generated password is: NjRiNDYjMGI0OWQ
+Enter passphrase:
 Password has been copied to your clipboard.
 It will be replaced with a fake one after timer hits zero.
 The screen will clear in 00:10 seconds
@@ -99,7 +86,7 @@ The screen will clear in 00:10 seconds
 ```
 $ passtrust -r
 Password will be 16 characters long
-Your random passphrase is: 
+Your random passphrase is:
 "b26ab9d7e75b4b13b770ad9a108dcb62"
 Your generated password is: NmNiNDQ3MjdlMWQ
 The screen will clear in 00:10 seconds
@@ -111,7 +98,7 @@ The screen will clear in 00:10 seconds
 $ passtrust -p
 Password will be 16 characters long
 Security testing is activated
-Enter passphrase: ****
+Enter passphrase:
 Evaluating password security
 Score: 0/4
 Password is too weak. Choose a better one
@@ -120,7 +107,7 @@ Password is too weak. Choose a better one
 $ passtrust -p
 Password will be 16 characters long
 Security testing is activated
-Enter passphrase: *************************
+Enter passphrase:
 Evaluating password security
 Score: 4/4
 Your generated password is: MTc1YjgwNjJhMmY
