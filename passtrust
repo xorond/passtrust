@@ -137,7 +137,9 @@ class Passtrust
   def cls; Gem.win_platform? ? (system 'cls') : (system 'reset'); end
 
   def print_password(word, timeout = @options_timeout)
-    puts "Your generated password is: #{@colorizer.green(word)}"
+    if not @options_clipboard
+      puts "Your generated password is: #{@colorizer.green(word)}"
+    end
 
     if @options_clipboard
       Clipboard.copy word
