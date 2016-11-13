@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 sudo install -dm755 /usr/share/passtrust
 bundle install --no-deployment --with optional
-sudo cp ../passtrust ../Gemfile ../Gemfile.lock /usr/share/passtrust
+sudo cp -a ../passtrust ../Gemfile ../Gemfile.lock ../import /usr/share/passtrust
 echo """#!/usr/bin/env bash
 cd /usr/share/passtrust
 ./passtrust "\$@"""" | sudo tee /usr/bin/passtrust >/dev/null
