@@ -45,8 +45,7 @@ def leave
 end
 
 def main
-  password = Passtrust.new
-  password.start
+  Passtrust.new.start
 end
 
 if __FILE__ == $0
