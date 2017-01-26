@@ -30,6 +30,7 @@ OptionParser.new do |opt|
   opt.on('-c', '--clipboard', 'Copy generated password to clipboard') { $options.clipboard = true }
   opt.on('-r', '--random', 'Use a random passphrase') { $options.random = true }
   opt.on('-p', '--pass_security', 'Check security of passphrase') { $options.security = true }
+  opt.on('-s', '--special', 'Replace some of the characters with specials') {$options.special = true }
 
   opt.on_tail('-h', '--help', 'Show this text') { puts opt; exit 130 }
   opt.on_tail('-V', '--version', 'Show version info and exit') { puts "Version: #{$version}"; exit 130 }

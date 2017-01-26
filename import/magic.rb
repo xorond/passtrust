@@ -11,7 +11,28 @@ class Magic
   def magic(word, length)
     word = base64_encode(sha512_digest(sha384_digest(sha2_digest(sha1_digest(word))))).gsub("\n","") + base64_encode(sha512_digest(sha384_digest(sha1_digest(sha2_digest(word))))).gsub("\n","")
     word.gsub!("=","")
-    word = word[0, (length/2)-1] + word[-(length/2), length]
+
+  # replace some characters with specials
+  if $options.special
+    specials = {
+                "a" => ">",
+                "e" => "[",
+                "i" => "!",
+                "n" => "\\",
+                "r" => "+",
+                "t" => "/",
+                "u" => "]",
+                "y" => "&",
+                "A" => "<",
+                "N" => "^",
+                "M" => "%",
+                "P" => "}",
+                "Q" => "{",
+                "Z" => "@"
+    }
+    specials.each {|i,q| word.gsub!(i, q)}
   end
 
+   word = word[0, (length/2)-1] + word[-(length/2), length]
+  end
 end
