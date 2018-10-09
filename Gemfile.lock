@@ -1,10 +1,10 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    clipboard (1.1.1)
-    highline (1.7.8)
-    sysrandom (1.0.3)
-    zxcvbn-ruby (0.1.1)
+    clipboard (1.1.2)
+    highline (2.0.0)
+    sysrandom (1.0.5)
+    zxcvbn-ruby (0.1.2)
 
 PLATFORMS
   ruby
@@ -17,4 +17,4 @@ DEPENDENCIES
   zxcvbn-ruby
 
 BUNDLED WITH
-   1.13.2
+   1.16.6
